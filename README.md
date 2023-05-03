@@ -18,11 +18,11 @@ Implementation detail: [A http proxy based on QUIC in 100 lines](https://liudank
 
 ## Installation & Usage
 
-**Note**: require go version >= 1.16
+**Note**: require go version >= 1.16; added support for go 1.18 by change the quic-go version to v0.26.0
 
 ### Install `qpserver` on your remote server
 
-`go get -u github.com/liudanking/quic-proxy/qpserver`
+`go get -u github.com/xhq928/quic-proxy/qpserver`
 
 ### Start `qpserver`:
 
@@ -30,7 +30,7 @@ Implementation detail: [A http proxy based on QUIC in 100 lines](https://liudank
 
 ### Install `qpclient` on your local machine
 
-`go get -u github.com/liudanking/quic-proxy/qpclient`
+`go get -u github.com/xhq928/quic-proxy/qpclient`
 
 ### Start `qpclient`:
 
