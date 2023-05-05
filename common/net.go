@@ -6,9 +6,9 @@ import (
 	"net"
 	"sync"
 
-	log "github.com/liudanking/goutil/logutil"
+	log "github.com/xhq928/goutil/logutil"
 
-	quic "github.com/lucas-clemente/quic-go"
+	quic "github.com/quic-go/quic-go"
 )
 
 const (
@@ -43,7 +43,7 @@ func (ql *QuicListener) doAccept() {
 		}
 		log.Info("accept a session")
 
-		go func(sess quic.Session) {
+		go func(sess quic.Connection) {
 			for {
 				stream, err := sess.AcceptStream(context.TODO())
 				if err != nil {
@@ -67,7 +67,7 @@ func (ql *QuicListener) Accept() (net.Conn, error) {
 }
 
 type QuicStream struct {
-	sess quic.Session
+	sess quic.Connection
 	quic.Stream
 }
 
@@ -81,7 +81,7 @@ func (qs *QuicStream) RemoteAddr() net.Addr {
 
 type QuicDialer struct {
 	skipCertVerify bool
-	sess           quic.Session
+	sess           quic.Connection
 	sync.Mutex
 }
 

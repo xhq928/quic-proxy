@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/elazarl/goproxy"
-	log "github.com/liudanking/goutil/logutil"
-	"github.com/liudanking/quic-proxy/common"
+	log "github.com/xhq928/goutil/logutil"
+	"github.com/xhq928/quic-proxy/common"
 )
 
 var unauthorizedMsg = []byte("404 not found")

@@ -6,14 +6,14 @@ import (
 	"strings"
 
 	"github.com/elazarl/goproxy"
-	"github.com/lucas-clemente/quic-go"
+	"github.com/quic-go/quic-go"
 
 	"flag"
 
 	_ "net/http/pprof"
 
-	log "github.com/liudanking/goutil/logutil"
-	"github.com/liudanking/quic-proxy/common"
+	log "github.com/xhq928/goutil/logutil"
+	"github.com/xhq928/quic-proxy/common"
 )
 
 func main() {
