@@ -5,17 +5,20 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"log"
+	"time"
 
 	_ "net/http/pprof"
 
 	"github.com/elazarl/goproxy"
-	log "github.com/xhq928/goutil/logutil"
+	xlog "github.com/xhq928/goutil/logutil"
 	"github.com/xhq928/quic-proxy/common"
 )
 
 func main() {
-	log.Debug("client")
-
+	xlog.Debug("client")
+	log.SetFlags(log.Llongfile | log.Lmicroseconds | log.Ldate)
+	time.Now()
 	var (
 		listenAddr     string
 		proxyUrl       string
@@ -38,23 +41,23 @@ func main() {
 
 	if pprofile {
 		pprofAddr := "localhost:6061"
-		log.Notice("listen pprof:%s", pprofAddr)
+		xlog.Notice("listen pprof:%s", pprofAddr)
 		go http.ListenAndServe(pprofAddr, nil)
 	}
 
 	Url, err := url.Parse(proxyUrl)
 	if err != nil {
-		log.Error("proxyUrl:%s invalid", proxyUrl)
+		xlog.Error("proxyUrl:%s invalid", proxyUrl)
 		return
 	}
 	if Url.Scheme == "https" {
-		log.Error("quic-proxy only support http proxy")
+		xlog.Error("quic-proxy only support http proxy")
 		return
 	}
 
 	parts := strings.Split(auth, ":")
 	if len(parts) != 2 {
-		log.Error("auth param invalid")
+		xlog.Error("auth param invalid")
 		return
 	}
 	username, password := parts[0], parts[1]
@@ -73,6 +76,6 @@ func main() {
 	// set basic auth
 	proxy.OnRequest().Do(SetAuthForBasicRequest(username, password))
 
-	log.Info("start serving %s", listenAddr)
-	log.Error("%v", http.ListenAndServe(listenAddr, proxy))
+	xlog.Info("start serving %s", listenAddr)
+	xlog.Error("%v", http.ListenAndServe(listenAddr, proxy))
 }
